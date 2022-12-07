@@ -1,0 +1,180 @@
+/*Обнуление*/
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	font-size: 24px;
+}
+input,button,textarea{font-family:inherit;border-radius: 0;outline:0;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+/*--------------------*/
+html {
+    font-family: 'Press Start 2P';
+    font-size: 2rem;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #222;
+    color: white;
+    overflow-x: hidden;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#button {
+    --color: firebrick;
+    --border-color: firebrick;
+    --shadow-color: rgb(112, 20, 20);
+
+    position: relative;
+    font-size: .75rem;
+    width: 200px;
+    height: 75px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 2rem;
+    border: none;
+    background-size: cover;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-weight: bold;
+    background-color: var(--color);
+    box-shadow: 0 -3px var(--color),
+                3px 0 var(--color),
+                0 3px var(--color),
+                -3px 0 var(--color),
+                0 -6px var(--border-color),
+                3px -3px var(--border-color),
+                6px 0 var(--border-color),
+                0 6px var(--border-color),
+                -3px 3px var(--border-color),
+                -6px 0 var(--border-color),
+                -3px -3px var(--border-color),
+                3px 3px var(--border-color),
+                0px 9px var(--shadow-color),
+                3px 6px var(--shadow-color),
+                6px 3px var(--shadow-color),
+                0px 9px var(--shadow-color),
+                -3px 6px var(--shadow-color),
+                -6px 3px var(--shadow-color);
+}
+
+#button:active {
+    top: 6px;
+	box-shadow: 0 -3px var(--color),
+                3px 0 var(--color),
+                0 3px var(--color),
+                -3px 0 var(--color),
+                0 -6px var(--border-color),
+                3px -3px var(--border-color),
+                6px 0 var(--border-color),
+                0 6px var(--border-color),
+                -3px 3px var(--border-color),
+                -6px 0 var(--border-color),
+                -3px -3px var(--border-color),
+                3px 3px var(--border-color),
+                0px 6px var(--shadow-color),
+                3px 3px var(--shadow-color),
+                6px 0px var(--shadow-color),
+                0px 6px var(--shadow-color),
+                -3px 3px var(--shadow-color),
+                -6px 0px var(--shadow-color);
+}
+
+#display,
+#counter {
+    height: 32px;
+}
+.box{
+    position: fixed;
+    top: 0;
+    left: 200%;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    justify-content: center;
+}
+.box__bg{
+	position: absolute;
+	top: 0;
+	left: 0%;
+	width: 100%;
+    height: 100%;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.box.box-open{
+	left: 0%;
+}
+.box__inner{
+   min-width: 310px;
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 40px 15px;
+   border-radius: 5px;
+   background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px) !important;
+    border-radius: 5px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-right: 3.5px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 3.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 25px 45px rgb(255 255 255 / 16%);
+	height: 100%;
+	overflow-y: auto;
+}
+.box__inner>*:not(:last-child){
+	margin: 0px 0px 25px 0px;
+}
+.box__list>*:not(:last-child){
+	margin:0px 0px 15px 0px;
+}
+.score,
+.score1{
+	position: fixed;
+	bottom: 45px;
+	right: 70px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: blue;
+	cursor: pointer;
+}
+.score-delete{
+	background-color: red;
+	font-size: 14px;
+	right: 12px;
+}

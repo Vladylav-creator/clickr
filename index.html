@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clickr</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link rel="stylesheet" href="zero.css">
+    </head>
+
+    <body>
+        <main>
+            <div id="display"></div>
+
+            <button id="button" class="timerInterval timeStop notClicked">Clickr</button>
+
+            <div id="counter"></div>
+            <div class="box">
+                <div class="box__bg"></div>
+                <div class="box__inner">
+                    <h2 class="box__title">You score history</h2>
+                    <ol class="box__list">
+        
+                    </ol>
+                </div>
+            </div>
+        </main>
+        <div class="score">
+            <div class="score__inner">
+                <p class="score__text">?</p>
+            </div>
+        </div>
+        <div class="score1 score-delete">
+            <div class="score__inner">
+                <p class="score__text">Del</p>
+            </div>
+        </div>
+        <script>
+          const btn = document.querySelector("#button")
+          const dispaly = document.querySelector("#display")
+          const counter = document.querySelector("#counter")
+          const scoreBtn = document.querySelector(".score")
+          const boxInfo = document.querySelector(".box")
+          const boxBg = document.querySelector(".box__bg")
+          let boxList = document.querySelector(".box__list")
+          const scoreDel = document.querySelector(".score-delete")
+          let attempts = [];
+          let timer = 5;
+          let clicks=" "+0
+          // GET OLD DATA AND ADD IT TO THE NEW DATA
+          // JSON.PARSE CONVERTS JSON STRING INTO INITONAL VALUE
+          // LOCALSTORAGE.GETITEM("attempt") GIVE US AN ARRAY.
+          // if(localStorage.getItem('data')==null){
+          //     localStorage.setItem('attempt','[]')
+          //     console.log("If is true")
+          //    } 
+          if(localStorage.getItem('data')==null){
+              localStorage.setItem('attempt','[]')
+             
+             }
+          let old_data = JSON.parse(localStorage.getItem("attempt"))
+            btn.addEventListener("click",incrementClicks)
+          function incrementClicks(){
+            btn.classList.remove("notClicked")
+            dispaly.textContent=timer;
+            clicks++;
+            counter.textContent = clicks
+            if(btn.classList.contains("timeStop")){
+                timeStop();
+            } 
+            if(btn.classList.contains("timerInterval")){
+                timerInterval()
+            } 
+            btn.classList.remove("timeStop")
+            btn.classList.remove("timerInterval")
+          }
+          
+          function timeStop(){
+            const time = setTimeout(() => {
+                btn.removeEventListener("click", incrementClicks)
+            }, 5000);
+          }
+          function timerInterval(){
+           const timerInterval = setInterval(()=>{
+                if (timer!=0) {
+                    timer--;
+                    dispaly.textContent=timer;
+                } else{ // REALLY SMART WAY TO CREATE ARRAY IN LOCAL STORAGE IN JSON STRING
+                  old_data.push(clicks)
+                    remove()
+                    save()
+                    view()
+                    // THEN OLD DATA IS AN ARRAY AND USING PUSH WE ADD NEW ELEMENT
+                    
+                    clearInterval(timerInterval)
+                    // console.log(clicks)
+                    // return
+                }
+           },1000)
+          }
+          function remove(){
+            boxList.innerHTML = "";
+          }
+          function save(){
+            // HERE YOU CONVER OUR ARRAY INTO JSON STRING
+            localStorage.setItem("attempt",JSON.stringify(old_data))
+          }
+          function view(){
+            if(localStorage.getItem('attempt')!= null){
+                // console.log(JSON.parse(localStorage.getItem("attempt")))
+                old_data.sort((a,b)=>  b-a)
+               old_data.map(el => {
+                boxList.innerHTML+=`   <li class="box__item">${el}</li>`
+                });
+            }
+          }
+          scoreBtn.addEventListener("click",function(){
+            boxInfo.classList.toggle("box-open");
+            // boxList.innerHTML = old_data.map(el => {
+            //     boxList.innerHTML+=`   <li class="box__item">${el}</li>`
+            //     });
+            // boxList.innerHTML ="hello World!"
+            if (btn.classList.contains("notClicked")) {
+              boxList.innerHTML ="Play first to see your outcome"
+            }
+            
+          })
+          boxBg.addEventListener("click",function(){
+            boxInfo.classList.toggle("box-open");
+            
+          })
+          scoreDel.addEventListener("click",function(){
+            localStorage.clear();
+            boxList.innerHTML = "";
+            if (btn.classList.contains("notClicked")) {
+              boxList.innerHTML ="Play first to see your outcome"
+            }
+            if(localStorage.getItem('data')==null){
+              localStorage.setItem('attempt','[]')
+              console.log("If is true")
+             } 
+          })
+          // old_data.sort((a,b)=>b-a)
+          //   old_data.forEach(el => {
+          //       boxList.innerHTML+=`   <li class="box__item">${el}</li>`
+          //   });
+        </script>
+    </body>
+</html>
